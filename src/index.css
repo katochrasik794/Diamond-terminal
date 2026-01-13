@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+@layer base {
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #131722; /* Matches the app's dark background */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #71717a; /* Zinc-500 equivalent for that sleek gray look */
+    border-radius: 9999px; /* Fully rounded corners */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a1a1aa; /* Lighter on hover */
+  }
+
+  /* For Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #71717a #131722;
+  }
+}

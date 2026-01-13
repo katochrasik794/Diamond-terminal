@@ -1,20 +1,95 @@
+import { useState } from 'react'
+import '../index.css'
+
+const symbolsData = [
+  { symbol: 'DMART Dec25', bid: '3752.90', ask: '3756.80', spread: '390', trend: 'neutral', bidClass: '', askClass: '' },
+  { symbol: 'Silver Mini Feb26', bid: '271708', ask: '271809', spread: '64', trend: 'down', bidClass: 'text-red-500', askClass: 'text-red-500' },
+  { symbol: 'Silver MCX Mar26', bid: '269763', ask: '269851', spread: '117', trend: 'up', bidClass: 'text-[#00c853]', askClass: 'text-[#00c853]' },
+  { symbol: 'Gold Feb26', bid: '141505', ask: '141485', spread: '22', trend: 'down', bidClass: 'text-red-500', askClass: 'text-red-500' },
+  { symbol: 'ABB Dec25', bid: '5154.50', ask: '5165.00', spread: '1050', trend: 'neutral', bidClass: '', askClass: '' },
+  { symbol: 'ABCAPITAL Dec25', bid: '347.65', ask: '348.45', spread: '80', trend: 'neutral', bidClass: '', askClass: '' },
+  { symbol: 'ADANIENT Dec25', bid: '2212.50', ask: '2215.90', spread: '340', trend: 'neutral', bidClass: '', askClass: '' },
+  { symbol: 'ADANIPORTS Dec25', bid: '1467.80', ask: '1472.00', spread: '420', trend: 'neutral', bidClass: '', askClass: '' },
+  { symbol: 'ALKEM Dec25', bid: '5443.00', ask: '5473.00', spread: '3000', trend: 'neutral', bidClass: '', askClass: '' },
+  { symbol: 'AMBUJACEM Dec25', bid: '549.85', ask: '551.85', spread: '200', trend: 'neutral', bidClass: '', askClass: '' },
+  { symbol: 'APOLLOHOSP Dec25', bid: '6973.00', ask: '6979.00', spread: '600', trend: 'neutral', bidClass: '', askClass: '' },
+]
 
 const RightSidebar = () => {
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const getTrendIcon = (trend) => {
+    if (trend === 'up') {
+      return (
+        <svg className="w-[18px] h-[18px] text-[#00c853]" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 14 5-5 5 5z" fill="currentColor"></path></svg>
+      )
+    } else if (trend === 'down') {
+      return (
+        <svg className="w-[18px] h-[18px] text-red-500" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5z" fill="currentColor"></path></svg>
+      )
+    } else {
+      return (
+        <svg className="w-[10px] h-[10px] text-gray-500 ml-[4px] mr-[4px]" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>
+      )
+    }
+  }
+
   return (
-    <div className="bg-[#131722] border border-[#2a2e39] rounded-lg p-2 h-full w-full overflow-y-auto flex flex-col">
-      <div className="text-gray-200 font-semibold mb-4 pb-2 border-b border-[#2a2e39]">
-        Market Watch
-      </div>
-      <div className="space-y-2">
-        {['EURUSD', 'GBPUSD', 'USDJPY', 'BTCUSD', 'ETHUSD'].map((symbol) => (
-          <div key={symbol} className="flex justify-between items-center p-2 hover:bg-[#2a2e39] rounded cursor-pointer transition-colors">
-            <span className="text-gray-300">{symbol}</span>
-            <div className="flex flex-col items-end">
-              <span className="text-emerald-500">1.2345</span>
-              <span className="text-xs text-emerald-500/70">+0.05%</span>
+    <div className="bg-[#131722] rounded-lg h-full w-full flex flex-col overflow-hidden">
+      {/* Header with Search and Settings */}
+      <div className="h-[50px] px-3 border-b border-[#2a2e39] flex-shrink-0 flex items-center bg-[#131722]">
+        <div className="flex items-center gap-2 w-full">
+          <div className="flex-1 flex items-center gap-2">
+            <div className="text-gray-400 flex items-center justify-center">
+               <svg className="w-[24px] h-[24px] fill-current" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SearchIcon"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg>
             </div>
+            <input
+              type="text"
+              placeholder="Search and Add Symbol..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-transparent border-none text-[16px] text-white placeholder-gray-500 focus:outline-none h-full"
+            />
           </div>
-        ))}
+          <button className="flex items-center justify-center p-1 hover:bg-[#2a2e39] rounded-full transition-colors text-white">
+            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height="18px" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M960.496 415.056l-82.129-18.224c-6.4-20.48-14.784-40.08-24.4-58.927l44.431-74.032c16.592-26.512 24.976-65.52 0-90.512l-45.28-45.248c-24.976-24.992-67.151-20.496-92.623-2.832l-72.032 45.887c-18.689-9.696-38.225-18-58.529-24.56l-18.431-83.12C605.999 33.009 579.343 0 543.999 0h-64c-35.344 0-57.008 33.504-64 64l-20.528 82.128c-21.68 6.912-42.496 15.744-62.336 26.208l-73.84-47.024c-25.456-17.664-67.648-22.16-92.624 2.832l-45.264 45.248c-24.992 25.008-16.608 64 0 90.512l46.752 77.92c-8.767 17.664-16.544 35.936-22.544 55.024l-82.112 18.224C33.007 420.56 0 447.216 0 482.56v64c0 35.344 33.504 57.008 64 64l83.152 20.784c5.745 17.632 12.928 34.56 21.056 50.976l-46.8 78c-16.591 26.496-24.975 65.504 0 90.496l45.28 45.248c24.976 25.008 67.152 20.496 92.624 2.847l74-47.152c19.952 10.528 40.88 19.44 62.704 26.337L416.495 960c7.008 30.496 28.656 64 64 64h64c35.344 0 62-33.007 67.504-63.504l18.464-83.343c20.096-6.496 39.376-14.689 57.84-24.257l72.192 46c25.472 17.664 67.664 22.16 92.624-2.848L898.4 850.8c24.976-25.008 16.592-64 0-90.496l-44.463-74.128c8.944-17.568 16.688-35.84 22.912-54.848L960 610.56c30.496-7.008 64-28.656 64-64v-64c0-35.344-32.992-62-63.504-67.504zm-.465 126.992c-2.72 1.952-7.842 4.635-14.338 6.139l-118.656 29.631-11.008 33.632c-4.975 15.153-11.407 30.529-19.119 45.712l-16.064 31.569 62.688 104.528c4 6.4 5.872 12.127 6.432 15.503l-42.096 42.033c-4.064-1.28-8.688-2.945-10.912-4.464l-105.344-67.184-32.752 16.945c-15.776 8.192-31.969 14.976-48.097 20.192l-34.88 11.28-26.368 119.12c-1.216 6.368-4.624 11.504-6.96 13.344h-57.6c-1.951-2.72-4.623-7.84-6.112-14.32L449.39 827.9l-34.095-10.817c-17.569-5.536-35.088-12.912-52.144-21.904l-32.912-17.376-105.36 67.152c-4.304 2.912-8.912 4.56-13.088 4.56l-41.968-40.847c.56-3.311 2.304-8.783 5.792-14.367l65.456-109.056-15.568-31.344c-7.264-14.784-13.024-28.656-17.504-42.4l-10.992-33.664L79.518 548.46c-7.392-1.68-12.736-4.432-15.52-6.4v-59.504c.032.016.08.032.145.032 1.072 0 6.336-3.745 10.72-4.544l120.72-26.737 11.087-35.28c4.512-14.368 10.672-29.344 18.816-45.775l15.568-31.36-64.767-107.92c-4.016-6.432-5.872-12.16-6.432-15.52l42.08-42.065c4.08 1.312 8.672 2.96 10.88 4.48l107.312 68.4 32.88-17.344c16.88-8.895 34.336-16.239 51.904-21.823l34.016-10.832L478.11 79.501c1.697-7.391 4.416-12.735 6.4-15.52H544c-.433.657 3.68 6.24 4.527 10.865l26.88 121.408 34.848 11.264c16.336 5.28 32.752 12.16 48.72 20.448l32.752 17.008 103.152-65.712c4.32-2.945 8.944-4.576 13.088-4.576l42 40.816c-.56 3.328-2.32 8.816-5.808 14.416l-63.344 105.488 16.16 31.616c8.72 17.056 15.376 33.056 20.32 48.928l11.056 35.344L946.64 477.55c7.153 1.328 12.721 5.456 13.905 7.696zM512.43 319.674c-106.272 0-192.736 86.288-192.736 192.32 0 106.016 86.464 192.304 192.736 192.304s192.736-86.288 192.736-192.304c0-106.032-86.464-192.32-192.736-192.32zm-.432 320.32c-70.576 0-128-57.424-128-128 0-70.592 57.424-128 128-128 70.592 0 128 57.408 128 128 0 70.576-57.424 128-128 128z"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Scrollable Table Area */}
+      <div className="flex-1 overflow-auto bg-[#151924]">
+        <table className="w-[520px] min-w-[520px] border-collapse text-left">
+          <thead className="sticky top-0 bg-[#131722] z-40 border-b border-[#2a2e39]">
+            <tr className="h-[40px]">
+              <th className="sticky left-0 z-50 bg-[#131722] pl-4 font-semibold text-[14px] text-white w-[160px]">Symbol</th>
+              <th className="px-3 font-semibold text-[14px] text-white text-center w-[120px]">Bid</th>
+              <th className="px-3 font-semibold text-[14px] text-white text-center w-[120px]">Ask</th>
+              <th className="px-3 font-semibold text-[14px] text-white text-center w-[120px]">Spread</th>
+            </tr>
+          </thead>
+          <tbody>
+            {symbolsData.map((item, index) => (
+              <tr key={index} className="h-[40px] border-b border-[#2a2e39]/50 hover:bg-[#2a2e39]/30 transition-colors group cursor-pointer">
+                <td className="sticky left-0 z-30 bg-[#151924] group-hover:bg-[#1c202b] transition-colors py-2 pl-4">
+                  <div className="flex items-center gap-2">
+                    {getTrendIcon(item.trend)}
+                    <span className="text-[14px] text-white font-medium whitespace-nowrap">{item.symbol}</span>
+                  </div>
+                </td>
+                <td className={`py-2 px-3 text-[14px] text-center ${item.bidClass || 'text-white'}`}>
+                  {item.bid}
+                </td>
+                <td className={`py-2 px-3 text-[14px] text-center ${item.askClass || 'text-white'}`}>
+                  {item.ask}
+                </td>
+                <td className="py-2 px-3 text-[14px] text-center text-white">
+                  {item.spread}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   )
