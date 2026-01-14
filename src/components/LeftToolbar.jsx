@@ -19,7 +19,7 @@ const ToolbarButton = ({ icon, tooltip, isActive, hasArrow }) => (
 );
 
 const Separator = () => (
-    <div className="w-6 h-[1px] bg-[#2a2e39] my-1 mx-auto flex-shrink-0"></div>
+    <div className="w-8 h-[1px] bg-[#2a2e39] my-1 mx-auto flex-shrink-0"></div>
 );
 
 const LeftToolbar = () => {
@@ -38,7 +38,7 @@ const LeftToolbar = () => {
   };
 
   return (
-    <div className="w-[52px] h-full flex flex-col bg-[#131722] border-r border-[#2a2e39] py-1">
+    <div className="w-[52px] h-full flex flex-col bg-[#131722] py-1">
       {/* Scroll Up Arrow */}
       <button onClick={scrollUp} className="w-full flex items-center justify-center py-1 hover:text-white text-gray-400 hover:bg-[#2a2e39] flex-shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
