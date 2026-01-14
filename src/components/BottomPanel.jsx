@@ -82,7 +82,7 @@ const BottomPanel = () => {
   return (
     <div className="flex h-full w-full bg-[#131722] text-white border-t border-[#2a2e39] font-sans">
       {/* Sidebar - Tabs */}
-      <div className="w-[50px] flex-shrink-0 flex flex-col items-center border-r border-[#2a2e39] bg-[#131722] py-1">
+      <div className="w-[52px] flex-shrink-0 flex flex-col items-center bg-[#131722] py-1">
          
          {/* Up Arrow */}
          <button onClick={scrollUp} className="w-full flex items-center justify-center py-1 hover:text-white text-gray-400 hover:bg-[#2a2e39]">
@@ -117,6 +117,9 @@ const BottomPanel = () => {
             <ChevronDownIcon />
          </button>
       </div>
+      
+      {/* Vertical Separator */}
+      <div className="w-[4px] bg-[#2a2e39] transition-colors duration-200"></div>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#131722]">
