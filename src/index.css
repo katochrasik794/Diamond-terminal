@@ -2,31 +2,46 @@
 
 @layer base {
   /* Custom Scrollbar Styles */
+  /* Common Scrollbar Dimensions */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
-
   ::-webkit-scrollbar-button {
     display: none;
   }
 
-  ::-webkit-scrollbar-track {
-    background: #131722; /* Matches the app's dark background */
+  /* Dark Theme Scrollbar */
+  .dark ::-webkit-scrollbar-track {
+    background: #131722;
   }
-
-  ::-webkit-scrollbar-thumb {
-    background: #71717a; /* Zinc-500 equivalent for that sleek gray look */
-    border-radius: 9999px; /* Fully rounded corners */
+  .dark ::-webkit-scrollbar-thumb {
+    background: #71717a;
+    border-radius: 9999px;
   }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #a1a1aa; /* Lighter on hover */
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #a1a1aa;
   }
-
-  /* For Firefox */
-  * {
+  /* Firefox Dark */
+  .dark * {
     scrollbar-width: thin;
     scrollbar-color: #71717a #131722;
+  }
+
+  /* Light Theme Scrollbar */
+  .light ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  .light ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+  .light ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  /* Firefox Light */
+  .light * {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
   }
 }

@@ -51,7 +51,8 @@ const ChevronDownIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
 )
 
-const BottomPanel = () => {
+const BottomPanel = ({ theme }) => {
+    const isDark = theme === 'dark';
     // Data from the user's snippet
     const trades = [
         { ticket: '3392908', time: '29-12-2025 07:24:24', type: 'Buy', amount: '1.00', symbol: 'VEDL Dec25', open: '610.65', current: '607.00', sl: '--', tp: '--', comm: '-0.01', swap: '0.00', pl: '-3.66', comment: '--' },
@@ -80,12 +81,13 @@ const BottomPanel = () => {
     };
 
   return (
-    <div className="flex h-full w-full bg-[#131722] text-white border-t border-[#2a2e39] font-sans">
+    <div className={`flex h-full w-full border-t font-sans transition-colors duration-200 ${isDark ? 'bg-[#131722] text-white border-[#2a2e39]' : 'bg-white text-gray-900 border-gray-200'}`}>
       {/* Sidebar - Tabs */}
-      <div className="w-[52px] flex-shrink-0 flex flex-col items-center bg-[#131722] py-1">
+      <div className={`w-[3px] transition-colors duration-200 ${theme === 'dark' ? 'bg-[#2a2e39]' : 'bg-gray-300'}`} ></div>
+      <div className={`w-[52px] flex-shrink-0 flex flex-col items-center py-1 transition-colors duration-200 ${isDark ? 'bg-[#131722]' : 'bg-gray-50'}`}>
          
          {/* Up Arrow */}
-         <button onClick={scrollUp} className="w-full flex items-center justify-center py-1 hover:text-white text-gray-400 hover:bg-[#2a2e39]">
+         <button onClick={scrollUp} className={`w-full flex items-center justify-center py-1 transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-[#2a2e39]' : 'text-gray-500 hover:text-black hover:bg-gray-200'}`}>
             <ChevronUpIcon />
          </button>
 
@@ -104,7 +106,7 @@ const BottomPanel = () => {
              ].map((item, index) => (
                  <button 
                     key={index} 
-                    className={`w-[40px] h-[34px] flex-shrink-0 flex items-center justify-center rounded hover:bg-[#2a2e39] transition-colors relative ${item.active ? 'text-white' : 'text-gray-500'}`}
+                    className={`w-[40px] h-[34px] flex-shrink-0 flex items-center justify-center rounded transition-colors relative ${isDark ? 'hover:bg-[#2a2e39]' : 'hover:bg-gray-200'} ${item.active ? (isDark ? 'text-white' : 'text-blue-600') : 'text-gray-500'}`}
                  >
                     <item.Icon />
                     {item.badge && <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-red-500"></div>}
@@ -113,21 +115,21 @@ const BottomPanel = () => {
          </div>
 
          {/* Down Arrow */}
-         <button onClick={scrollDown} className="w-full flex items-center justify-center py-1 hover:text-white text-gray-400 hover:bg-[#2a2e39]">
+         <button onClick={scrollDown} className={`w-full flex items-center justify-center py-1 transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-[#2a2e39]' : 'text-gray-500 hover:text-black hover:bg-gray-200'}`}>
             <ChevronDownIcon />
          </button>
       </div>
       
       {/* Vertical Separator */}
-      <div className="w-[4px] bg-[#2a2e39] transition-colors duration-200"></div>
+      <div className={`w-[4px] transition-colors duration-200 ${isDark ? 'bg-[#2a2e39]' : 'bg-gray-200'}`}></div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 bg-[#131722]">
+      <div className={`flex-1 flex flex-col min-w-0 transition-colors duration-200 ${isDark ? 'bg-[#131722]' : 'bg-white'}`}>
         {/* Table Container */}
         <div className="flex-1 overflow-auto">
             <table className="w-full text-left border-collapse min-w-[1200px]">
-                <thead className="sticky top-0 bg-[#131722] z-10 text-xs text-gray-400 font-semibold shadow-sm">
-                    <tr className="h-[42px] border-b border-[#2a2e39]">
+                <thead className={`sticky top-0 z-10 text-sm font-semibold shadow-sm transition-colors duration-200 ${isDark ? 'bg-[#131722] text-gray-400' : 'bg-gray-50 text-gray-600'}`}>
+                    <tr className={`h-[42px] border-b ${isDark ? 'border-[#2a2e39]' : 'border-gray-200'}`}>
                         <th className="p-2 w-[40px] text-center"><input type="checkbox" className="accent-blue-500" /></th>
                         <th className="p-2 font-medium">Ticket</th>
                         <th className="p-2 font-medium">Date/Time</th>
@@ -145,33 +147,33 @@ const BottomPanel = () => {
                         <th className="p-2 font-medium w-[80px] text-center">Action</th>
                     </tr>
                 </thead>
-                <tbody className="text-xs">
+                <tbody className="text-sm">
                     {trades.map((trade, idx) => (
-                        <tr key={idx} className="h-[47px] border-b border-[#2a2e39]/50 hover:bg-[#2a2e39]/30 transition-colors">
+                        <tr key={idx} className={`h-[47px] border-b transition-colors ${isDark ? 'border-[#2a2e39]/50 hover:bg-[#2a2e39]/30' : 'border-gray-100 hover:bg-gray-50'}`}>
                             <td className="p-2 text-center"><input type="checkbox" className="accent-blue-500" /></td>
-                            <td className="p-2 text-white">{trade.ticket}</td>
-                            <td className="p-2 text-white font-mono">{trade.time}</td>
+                            <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.ticket}</td>
+                            <td className={`p-2 font-mono ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.time}</td>
                             <td className={`p-2 font-medium ${trade.type === 'Buy' ? 'text-[#00c853]' : 'text-red-500'}`}>{trade.type}</td>
-                            <td className="p-2 text-white">{trade.amount}</td>
-                            <td className="p-2 text-white">{trade.symbol}</td>
-                            <td className="p-2 text-white">{trade.open}</td>
-                            <td className="p-2 text-white">{trade.current}</td>
+                            <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.amount}</td>
+                            <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.symbol}</td>
+                            <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.open}</td>
+                            <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.current}</td>
                             <td className="p-2 text-gray-500">{trade.sl}</td>
                             <td className="p-2 text-gray-500">{trade.tp}</td>
-                            <td className="p-2 text-white">{trade.comm}</td>
-                            <td className="p-2 text-white">{trade.swap}</td>
+                            <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.comm}</td>
+                            <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{trade.swap}</td>
                             <td className={`p-2 font-medium ${trade.pl.startsWith('+') || (trade.pl !== '--' && parseFloat(trade.pl) >= 0) ? 'text-[#00c853]' : 'text-red-500'}`}>
                                 {trade.pl}
                             </td>
                             <td className="p-2 text-gray-400">{trade.comment}</td>
                             <td className="p-2">
                                 <div className="flex items-center justify-center gap-2">
-                                    <button className="text-gray-400 hover:text-white">
+                                    <button className={`hover:text-white ${isDark ? 'text-gray-400' : 'text-gray-500 hover:text-black'}`}>
                                         <svg viewBox="0 0 24 24" height="15px" width="15px" fill="currentColor">
                                             <g><path d="M14.5,12c0,1.38 -1.12,2.5 -2.5,2.5c-1.38,-0 -2.5,-1.12 -2.5,-2.5c0,-1.38 1.12,-2.5 2.5,-2.5c1.38,-0 2.5,1.12 2.5,2.5Zm-1,-0c0,-0.828 -0.672,-1.5 -1.5,-1.5c-0.828,-0 -1.5,0.672 -1.5,1.5c0,0.828 0.672,1.5 1.5,1.5c0.828,-0 1.5,-0.672 1.5,-1.5Z"></path><path d="M14.5,4.563c0,1.38 -1.12,2.5 -2.5,2.5c-1.38,-0 -2.5,-1.12 -2.5,-2.5c0,-1.38 1.12,-2.5 2.5,-2.5c1.38,-0 2.5,1.12 2.5,2.5Zm-1,-0c0,-0.828 -0.672,-1.5 -1.5,-1.5c-0.828,-0 -1.5,0.672 -1.5,1.5c0,0.828 0.672,1.5 1.5,1.5c0.828,-0 1.5,-0.672 1.5,-1.5Z"></path><path d="M14.5,19.437c0,1.38 -1.12,2.5 -2.5,2.5c-1.38,0 -2.5,-1.12 -2.5,-2.5c0,-1.38 1.12,-2.5 2.5,-2.5c1.38,0 2.5,1.12 2.5,2.5Zm-1,0c0,-0.828 -0.672,-1.5 -1.5,-1.5c-0.828,0 -1.5,0.672 -1.5,1.5c0,0.828 0.672,1.5 1.5,1.5c0.828,0 1.5,-0.672 1.5,-1.5Z"></path></g>
                                         </svg>
                                     </button>
-                                    <button className="text-gray-400 hover:text-white">
+                                    <button className={`hover:text-white ${isDark ? 'text-gray-400' : 'text-gray-500 hover:text-black'}`}>
                                         <svg viewBox="0 0 24 24" height="15px" width="15px" fill="currentColor"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
                                     </button>
                                 </div>
@@ -179,16 +181,16 @@ const BottomPanel = () => {
                         </tr>
                     ))}
                     {/* Pending Orders Row */}
-                    <tr className="h-[47px] bg-[#1a1e29] border-b border-[#2a2e39]/50">
+                    <tr className={`h-[47px] border-b ${isDark ? 'bg-[#1a1e29] border-[#2a2e39]/50' : 'bg-gray-50 border-gray-100'}`}>
                         <td className="p-2 text-center">
                             <input type="checkbox" className="accent-blue-500" />
                         </td>
-                        <td className="p-2 text-white font-medium" colSpan={3}>Pending Orders</td>
-                        <td className="p-2 text-white">10.00</td>
+                        <td className={`p-2 font-medium ${isDark ? 'text-white' : 'text-gray-900'}`} colSpan={3}>Pending Orders</td>
+                        <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>10.00</td>
                         <td colSpan={5}></td>
-                        <td className="p-2 text-white font-bold">-0.10</td>
-                        <td className="p-2 text-white">0.00</td>
-                        <td className="p-2 text-white bg-[#1e2330]">-253.53</td>
+                        <td className={`p-2 font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>-0.10</td>
+                        <td className={`p-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>0.00</td>
+                        <td className={`p-2 ${isDark ? 'text-white bg-[#1e2330]' : 'text-gray-900 bg-gray-100'}`}>-253.53</td>
                         <td colSpan={2}></td>
                     </tr>
                 </tbody>
@@ -196,26 +198,27 @@ const BottomPanel = () => {
         </div>
 
         {/* Footer Status Bar */}
-        <div className="h-[35px] flex-shrink-0 bg-[#151924] border-t border-[#2a2e39] flex items-center justify-between px-3">
+        <div className={`h-[35px] flex-shrink-0 border-t flex items-center justify-between px-3 transition-colors duration-200 ${isDark ? 'bg-[#151924] border-[#2a2e39]' : 'bg-white border-gray-200'}`}>
              <div className="flex items-center">
-                <div className="bg-[#1e2330] border border-[#2a2e39] rounded px-3 py-1 flex items-center">
+                <div className={`border rounded px-3 py-1 flex items-center ${isDark ? 'bg-[#1e2330] border-[#2a2e39]' : 'bg-gray-100 border-gray-200'}`}>
                    <input 
                     type="text" 
                     placeholder="Symbol name or Ticket ID" 
-                    className="bg-transparent text-xs text-white placeholder-gray-500 outline-none w-[150px]"
+                    className={`bg-transparent text-xs placeholder-gray-500 outline-none w-[150px] ${isDark ? 'text-white' : 'text-gray-900'}`}
                    />
                 </div>
              </div>
              
-             <div className="flex items-center gap-4 text-[11px] font-bold text-gray-300">
-                <span>Balance: <span className="text-white">1,000,002.08</span></span>
-                <span>Credit: <span className="text-white">0.00</span></span>
-                <span>Floating PL: <span className="text-white">-253.53</span></span>
-                <span>Equity: <span className="text-white">999,748.55</span></span>
-                <span>Used Margin: <span className="text-white">1,587.04</span></span>
-                <span>Free Margin: <span className="text-white">998,161.51</span></span>
-                <span>Margin Level: <span className="text-white">62,994.54%</span></span>
+             <div className={`flex items-center gap-4 text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                <span>Balance: <span className={`${isDark ? 'text-white' : 'text-gray-900'}`}>1,000,002.08</span></span>
+                <span>Credit: <span className={`${isDark ? 'text-white' : 'text-gray-900'}`}>0.00</span></span>
+                <span>Floating PL: <span className={`${isDark ? 'text-white' : 'text-gray-900'}`}>-253.53</span></span>
+                <span>Equity: <span className={`${isDark ? 'text-white' : 'text-gray-900'}`}>999,748.55</span></span>
+                <span>Used Margin: <span className={`${isDark ? 'text-white' : 'text-gray-900'}`}>1,587.04</span></span>
+                <span>Free Margin: <span className={`${isDark ? 'text-white' : 'text-gray-900'}`}>998,161.51</span></span>
+                <span>Margin Level: <span className={`${isDark ? 'text-white' : 'text-gray-900'}`}>62,994.54%</span></span>
              </div>
+
         </div>
       </div>
     </div>

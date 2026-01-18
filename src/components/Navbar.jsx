@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { Menu, LayoutGrid, FileText, Search, Plus, Server, Maximize } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 
-const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null }) => {
+import DesktopMenu from './DesktopMenu';
+
+const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null, theme, toggleTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
 
   return (
     <>
-      <nav className="bg-[#0c53b7] md:bg-[#131722] md:border-b border-gray-800 h-[44px] flex items-center select-none">
+      <nav className={`h-[44px] flex items-center select-none relative transition-colors duration-200 ${theme === 'dark' ? 'md:bg-[#131722] border-gray-800' : 'md:bg-white border-gray-200 border-b'} bg-[#0c53b7] md:border-b`}>
         {/* Mobile Navbar Content */}
         <div className="flex md:hidden items-center justify-between px-5 w-full h-full">
           {/* Left Side: Burger & Title */}
@@ -58,24 +61,26 @@ const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null 
         {/* Desktop Navbar Content (Hidden on Mobile) */}
         <div className="hidden md:flex items-center justify-between px-3 w-full h-full">
           {/* Left Section - Balanced Layout with Smaller Icons */}
-          <div className="flex items-center h-full gap-4 pl-2">
+          <div className="flex items-center h-full gap-4">
             {/* Hamburger Menu */}
             <button
-              className="p-1 pl-2 text-gray-200 hover:text-white transition-colors"
+              className={`p-1 transition-colors ${theme === 'dark' ? 'text-gray-200 hover:text-white' : 'text-gray-600 hover:text-black'} ${isDesktopMenuOpen ? (theme === 'dark' ? 'text-white' : 'text-black') : ''}`}
               aria-label="Toggle menu"
+              onClick={() => setIsDesktopMenuOpen(!isDesktopMenuOpen)}
             >
               <Menu className="w-4 h-4" />
             </button>
+            <DesktopMenu isOpen={isDesktopMenuOpen} onClose={() => setIsDesktopMenuOpen(false)} theme={theme} toggleTheme={toggleTheme} />
 
             {/* Divider */}
-            <div className="h-4 w-px bg-gray-700"></div>
+            <div className={`h-10 w-px transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'}`}></div>
 
             {/* Logo Group */}
             <a href="https://thediamondmarkets.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-              <div className="w-5 h-5 bg-white transform rotate-45 flex items-center justify-center rounded-[1px]">
-                 <div className="w-2 h-2 bg-[#0b1219]"></div>
+              <div className={`w-5 h-5 transform rotate-45 flex items-center justify-center rounded-[1px] transition-colors duration-200 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}>
+                 <div className={`w-2 h-2 transition-colors duration-200 ${theme === 'dark' ? 'bg-[#0b1219]' : 'bg-white'}`}></div>
               </div>
-              <span className="text-white font-medium text-sm tracking-wide">Diamond Markets</span>
+              <span className={`font-medium text-sm tracking-wide transition-colors duration-200 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Diamond Markets</span>
             </a>
 
             {/* Red/Blue Connection Toggle */}
@@ -99,14 +104,14 @@ const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null 
                 <svg viewBox="0 0 24 24" className="w-full h-full" fill="none" strokeWidth="3">
                     <path d="M12 2 A 10 10 0 0 0 12 22" stroke="#ef4444" strokeLinecap="round" />
                     <path d="M12 2 A 10 10 0 0 1 12 22" stroke="#3b82f6" strokeLinecap="round" />
-                    <path d="M12 7 V 12 L 15 15" stroke="currentColor" strokeWidth="2" className="text-gray-300" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 7 V 12 L 15 15" stroke="currentColor" strokeWidth="2" className={`transition-colors duration-200 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <span className="text-[#60a5fa] font-medium text-sm group-hover:text-blue-300 transition-colors">New Order</span>
             </button>
 
             {/* Divider */}
-            <div className="h-4 w-px bg-gray-700"></div>
+            <div className={`h-10 w-px transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'}`}></div>
 
             {/* Orders/Documents Button */}
             <button
@@ -117,25 +122,25 @@ const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null 
             </button>
 
             {/* Divider */}
-            <div className="h-4 w-px bg-gray-700"></div>
+            <div className={`h-10 w-px transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'}`}></div>
 
             {/* Grid/Layout Button */}
             <button
-              className="p-1 px-0 text-white hover:text-gray-300 transition-colors"
+              className={`p-1 px-0 transition-colors ${theme === 'dark' ? 'text-white hover:text-gray-300' : 'text-gray-600 hover:text-black'}`}
               aria-label="Layout"
             >
               <LayoutGrid className="w-4 h-4" />
             </button>
 
             {/* Divider */}
-            <div className="h-4 w-px bg-gray-700"></div>
+            <div className={`h-10 w-px transition-colors duration-200 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'}`}></div>
           </div>
 
           {/* Right Section - Utility Buttons */}
           <div className="flex items-center gap-4 pr-2">
              {/* One Click Trading */}
              <button
-                className="text-gray-400 hover:text-white transition-colors"
+                className={`transition-colors ${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-black'}`}
                 aria-label="One Click Trading"
              >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -146,7 +151,7 @@ const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null 
 
              {/* Fullscreen */}
              <button
-                className="text-gray-400 hover:text-white transition-colors"
+                className={`transition-colors ${theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-black'}`}
                 aria-label="Fullscreen"
              >
                 <Maximize className="w-5 h-5" />

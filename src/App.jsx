@@ -18,6 +18,11 @@ import {
 function App() {
   // Mobile view state
   const [mobileView, setMobileView] = useState('home');
+  const [theme, setTheme] = useState('dark');
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   // Calculate default width percentage to aim for ~440px width
   // Available width = Window - LeftToolbar(52) - Divider(3) - Padding(8) ≈ Window - 63
@@ -62,7 +67,7 @@ function App() {
   );
 
   return (
-    <div className="h-screen flex flex-col bg-[#0f0f1e] overflow-hidden">
+    <div className={`h-screen flex flex-col overflow-hidden ${theme} ${theme === 'dark' ? 'bg-[#0f0f1e]' : 'bg-gray-100'}`}>
       <Navbar 
         title={getMobileTitle()} 
         showMobileIcons={mobileView === 'home'} 
@@ -70,27 +75,32 @@ function App() {
           mobileView === 'history' ? historyIcons : 
           mobileView === 'trade' ? tradeRightContent : null
         }
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
-      <div className="flex-1 min-h-0 p-1 flex flex-col">
+      <div className="flex-1 min-h-0 flex flex-col">
         {/* Desktop Layout */}
         <div className="hidden md:flex flex-1 min-h-0 flex-col">
+          
             <div className="flex flex-1 min-h-0">
+              <div className={`w-[3px] transition-colors duration-200 ${theme === 'dark' ? 'bg-[#2a2e39]' : 'bg-gray-300'}`} ></div>
               <div className="flex-1 min-w-0 h-full">
                 <ResizablePanelGroup direction="horizontal">
                   <ResizablePanel defaultSize={chartSize}>
-                     <ChartSection />
+                     <ChartSection theme={theme} />
                   </ResizablePanel>
-                  <ResizableHandle className="w-[3px] bg-[#2a2e39] transition-colors duration-200" />
+                  <ResizableHandle className={`w-[3px] transition-colors duration-200 ${theme === 'dark' ? 'bg-[#2a2e39]' : 'bg-gray-300'}`} />
                   <ResizablePanel defaultSize={rightSize} minSize={5}>
-                     <RightSidebar />
+                     <RightSidebar theme={theme} />
                   </ResizablePanel>
                 </ResizablePanelGroup>
               </div>
             </div>
-            <div className="h-[3px] bg-[#2a2e39] transition-colors duration-200"></div>
+            <div className={`h-[3px] transition-colors duration-200 ${theme === 'dark' ? 'bg-[#2a2e39]' : 'bg-gray-300'}`}></div>
             <div className="h-[210px] flex-shrink-0">
-              <BottomPanel />
+              <BottomPanel theme={theme} />
             </div>
+            <div className={`h-[4px] transition-colors duration-200 ${theme === 'dark' ? 'bg-[#2a2e39]' : 'bg-gray-200'}`}></div>
         </div>
 
         {/* Mobile Layout */}
