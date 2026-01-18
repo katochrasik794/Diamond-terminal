@@ -19,9 +19,9 @@ const ChartSection = () => {
     "popup_width": "1000",
     "popup_height": "650",
     "support_host": "https://www.tradingview.com",
-    "backgroundColor": "rgba(19, 23, 34, 1)",
+    "backgroundColor": "#131722",
     "gridLineColor": "rgba(42, 46, 57, 0)",
-    "toolbar_bg": "#131722",
+    "toolbar_bg": "#124be9ff",
     "withdateranges": true,
     "hide_volume": false,
     "container_id": "tradingview_desktop"

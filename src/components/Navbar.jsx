@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, LayoutGrid, FileText, Search, Plus, Server } from 'lucide-react';
+import { Menu, LayoutGrid, FileText, Search, Plus, Server, Maximize } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 
 const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null }) => {
@@ -7,7 +7,7 @@ const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null 
 
   return (
     <>
-      <nav className="bg-[#0c53b7] md:bg-[#0b1219] md:border-b border-gray-800 h-[44px] flex items-center select-none">
+      <nav className="bg-[#0c53b7] md:bg-[#131722] md:border-b border-gray-800 h-[44px] flex items-center select-none">
         {/* Mobile Navbar Content */}
         <div className="flex md:hidden items-center justify-between px-5 w-full h-full">
           {/* Left Side: Burger & Title */}
@@ -132,26 +132,24 @@ const Navbar = ({ title = "Quotes", showMobileIcons = true, rightContent = null 
           </div>
 
           {/* Right Section - Utility Buttons */}
-          <div className="flex items-center gap-3">
-             <button className="flex items-center gap-2 bg-[#2196f3] hovering:bg-blue-600 text-white px-3 py-1 rounded text-xs font-medium transition-colors">
-                Apply to Real Account
-             </button>
-             
-             <div className="flex items-center gap-2 px-3 py-1 bg-[#1e222d] border border-gray-700 rounded cursor-pointer">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span className="text-xs text-gray-300">Connected</span>
-             </div>
-
-             <button className="text-gray-400 hover:text-white transition-colors">
-                <LayoutGrid className="w-5 h-5" />
-             </button>
-             
-             <button className="text-gray-400 hover:text-white transition-colors">
-                <FileText className="w-5 h-5" />
+          <div className="flex items-center gap-4 pr-2">
+             {/* One Click Trading */}
+             <button
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="One Click Trading"
+             >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                  <path d="M11.71 17.99A5.993 5.993 0 0 1 6 12c0-3.31 2.69-6 6-6 3.22 0 5.84 2.53 5.99 5.71l-2.1-.63a3.999 3.999 0 1 0-4.81 4.81l.63 2.1zM22 12c0 .3-.01.6-.04.9l-1.97-.59c.01-.1.01-.21.01-.31 0-4.42-3.58-8-8-8s-8 3.58-8 8 3.58 8 8 8c.1 0 .21 0 .31-.01l.59 1.97c-.3.03-.6.04-.9.04-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10zm-3.77 4.26L22 15l-10-3 3 10 1.26-3.77 4.27 4.27 1.98-1.98-4.28-4.26z"></path>
+                </svg>
              </button>
 
-             <button className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white text-xs font-bold">
-                J
+             {/* Fullscreen */}
+             <button
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="Fullscreen"
+             >
+                <Maximize className="w-5 h-5" />
              </button>
           </div>
         </div>

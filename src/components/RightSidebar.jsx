@@ -58,7 +58,7 @@ const RightSidebar = () => {
       </div>
 
       {/* Scrollable Table Area */}
-      <div className="flex-1 overflow-auto bg-[#151924]">
+      <div className="flex-1 overflow-auto bg-[#131722]">
         <table className="w-[520px] min-w-[520px] border-collapse text-left">
           <thead className="sticky top-0 bg-[#131722] z-40 border-b border-[#2a2e39]">
             <tr className="h-[40px]">
@@ -71,7 +71,7 @@ const RightSidebar = () => {
           <tbody>
             {symbolsData.map((item, index) => (
               <tr key={index} className="h-[40px] border-b border-[#2a2e39]/50 hover:bg-[#2a2e39]/30 transition-colors group cursor-pointer">
-                <td className="sticky left-0 z-30 bg-[#151924] group-hover:bg-[#1c202b] transition-colors py-2 pl-4">
+                <td className="sticky left-0 z-30 bg-[#131722] group-hover:bg-[#1c202b] transition-colors py-2 pl-4">
                   <div className="flex items-center gap-2">
                     {getTrendIcon(item.trend)}
                     <span className="text-[14px] text-white font-medium whitespace-nowrap">{item.symbol}</span>
